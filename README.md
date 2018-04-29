@@ -12,3 +12,6 @@
 ## Run
   - `mongod &`
   - `npm start`
+
+## Eslint
+  - `npm run pretest`
