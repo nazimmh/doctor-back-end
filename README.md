@@ -4,6 +4,7 @@
 # Doctor_backend
 
 ## Dependencies
+  - nodejs
   - mongodb
 
 ## Install
