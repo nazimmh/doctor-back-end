@@ -41,6 +41,13 @@ var PatientSchema = new Schema(
         type: String
       }
     },
+    // doctors who are following this patient
+    doctors: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Doctors'
+      }
+    ],
     // login information
     email: {
       type: String,
@@ -53,6 +60,9 @@ var PatientSchema = new Schema(
     password: {
       type: String,
       required: true
+    },
+    deviceID: {
+      type: String
     }
   },
   {

@@ -2,28 +2,28 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var IndicatorSchema = new Schema(
+var AppointmentSchema = new Schema(
   {
-    indicator: {
+    appointment: {
       type: String,
       unique: true,
-      requried: true
-    },
-    name: {
-      type: String,
-      maxlength: 250
+      required: true
     },
     description: {
       type: String,
-      maxlength: 500
-    },
-    threshold: {
-      type: Number,
       required: true
     },
-    speciality: {
+    date: {
+      type: Date,
+      required: true
+    },
+    doctor: {
       type: Schema.Types.ObjectId,
-      ref: 'Diseases'
+      ref: 'Doctors'
+    },
+    patient: {
+      type: Schema.Types.ObjecId,
+      ref: 'Patient'
     }
   },
   {
@@ -31,4 +31,4 @@ var IndicatorSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('Indicators', IndicatorSchema);
+module.exports = mongoose.model('Appointments', AppointmentSchema);

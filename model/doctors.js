@@ -20,9 +20,13 @@ var DoctorSchema = new Schema(
     address: {
       type: String
     },
-    specialities: {
-      type: Array[Schema.Types.Mixed]
-    },
+    specialities: [{ type: Schema.Types.ObjectId, ref: 'Diseases' }],
+    patients: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Patients'
+      }
+    ],
     // login information
     email: {
       type: String,
@@ -35,6 +39,9 @@ var DoctorSchema = new Schema(
     password: {
       type: String,
       required: true
+    },
+    deviceID: {
+      type: String
     }
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

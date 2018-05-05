@@ -2,33 +2,26 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var IndicatorSchema = new Schema(
+var DiseaseSchema = new Schema(
   {
-    indicator: {
+    disease: {
       type: String,
       unique: true,
       requried: true
     },
     name: {
-      type: String,
-      maxlength: 250
+      type: String
     },
     description: {
       type: String,
       maxlength: 500
     },
-    threshold: {
-      type: Number,
-      required: true
-    },
-    speciality: {
-      type: Schema.Types.ObjectId,
-      ref: 'Diseases'
-    }
+    indicators: [{ type: Schema.Types.ObjectId, ref: 'Indicators' }],
+    drugs: [{ type: Schema.Types.ObjectId, ref: 'Drugs' }]
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
   }
 );
 
-module.exports = mongoose.model('Indicators', IndicatorSchema);
+module.exports = mongoose.model('Diseases', DiseaseSchema);
