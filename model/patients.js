@@ -25,16 +25,17 @@ var PatientSchema = new Schema(
       type: String
     },
     maladies: {
-      type: String
+      type: Schema.Types.ObjectId,
+      ref: 'Diseases'
     },
     // patient family member
     proche: {
       name: { type: String },
       email: {
-        minlength: 5,
+        type: String,
+        minLength: 5,
         maxlength: 50,
         match: /\S+@\S+\.\S+/,
-        required: true,
         index: { unique: true }
       },
       phone: {
@@ -45,9 +46,10 @@ var PatientSchema = new Schema(
     doctors: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Doctors'
+        ref: 'doctors'
       }
     ],
+    // drugs list
     // login information
     email: {
       type: String,

@@ -17,14 +17,10 @@ var DrugSchema = new Schema(
     },
     schedule: [
       {
-        time: { type: Date },
+        time: { type: Number },
         quantity: { type: Number }
       }
     ],
-    patient: {
-      type: Schema.Types.ObjectId,
-      ref: 'Patients'
-    },
     disease: {
       type: Schema.Types.ObjectId,
       ref: 'Diseases'

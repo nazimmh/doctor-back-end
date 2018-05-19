@@ -15,9 +15,7 @@ var DiseaseSchema = new Schema(
     description: {
       type: String,
       maxlength: 500
-    },
-    indicators: [{ type: Schema.Types.ObjectId, ref: 'Indicators' }],
-    drugs: [{ type: Schema.Types.ObjectId, ref: 'Drugs' }]
+    }
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
