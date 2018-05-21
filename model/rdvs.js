@@ -22,7 +22,7 @@ var AppointmentSchema = new Schema(
       ref: 'Doctors'
     },
     patient: {
-      type: Schema.Types.ObjecId,
+      type: Schema.Types.ObjectId,
       ref: 'Patient'
     }
   },
