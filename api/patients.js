@@ -152,12 +152,14 @@ const authenticate = function(req, res, next) {
   if (!email || !password)
     return res.status(400).json({ message: 'Email & password are required' });
 
-  Patients.findOne({ email }, function(err, result) {
+  Patients.findOne({ email: email.toLowerCase() }, function(err, result) {
     if (err) return res.status(400).json(err);
+    if (!result) return res.status(400).json({ message: 'no user found '});
+
     result.comparePassword(password, function(err, isMatch){
       if (err) return res.status(400).json(err);
       if (isMatch) {
-        return res.status(200).json({ token: 'Your token here '});
+        return res.status(200).json({ uid: result._id, token: 'Your token here '});
       } else {
         return res.status(403).json({ message: 'Incorrect password' });
       }

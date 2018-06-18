@@ -8,6 +8,7 @@ var specialities = require('./specialities');
 var drugs = require('./drugs');
 var indicators = require('./indicators');
 var appointments = require('./appointments');
+var messages = require('./messages');
 
 router.use(function(req, res, next) {
   console.log('requesting...');
@@ -56,6 +57,9 @@ router.route('/appointments/:id').delete(appointments.deleteAppointment);
 router.route('/appointments').post(appointments.addAppointment);
 
 // message api
-
+router.route('/messages').get(messages.getAllMessages);
+router.route('/messages').get();
+router.route('/messages').get();
+router.route('/messages').get();
 
 module.exports = router;
