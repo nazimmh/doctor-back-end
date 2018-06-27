@@ -27,9 +27,11 @@ const getAppointment = function(req, res, next) {
     .populate('doctor')
     .populate('patient')
     .exec(function(err, result) {
-      if (err)
-        return res.status(400).send(err);
-      return res.status(200).json(result);
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(result);
+      }
     });
 };
 

@@ -54,7 +54,7 @@ router.route('/appointments').get(appointments.getAllAppointment);
 router.route('/appointments/:id').get(appointments.getAppointment);
 router.route('/appointments/:id').put(appointments.updateAppointment);
 router.route('/appointments/:id').delete(appointments.deleteAppointment);
-router.route('/appointments').post(appointments.addAppointment);
+router.route('/appointments/:id').post(appointments.addAppointment);
 
 // message api
 router.route('/messages').get(messages.getAllMessages);
