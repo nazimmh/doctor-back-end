@@ -1,7 +1,9 @@
 'use strict';
 var Types = require('mongoose').Types;
 var uuid = require('uuid');
+var jwt = require('jsonwebtoken');
 var Patients = require('./../model/patients');
+var jwtHelper = require('./helpers/jwt');
 
 const getAllPatients = function (req, res, next) {
   Patients
@@ -20,15 +22,25 @@ const getPatient = function(req, res, next) {
   if (!id)
     return res.status(400).json({ message: 'id is required' });
 
-  Patients
-    .findOne({ _id: id })
-    .populate('doctors')
-    .populate('maladies')
-    .exec(function(err, result) {
-      if (err)
-        return res.status(400).send(err);
+  jwt.verify(req.token, jwtHelper.jwtSecret, (err, authData) => {
+    if (err) {
+      return res.status(403).json(err);
+    } else {
+      if (authData.user === req.params.id) {
+        Patients
+          .findOne({ _id: id })
+          .populate('doctors')
+          .populate('maladies')
+          .exec(function(err, result) {
+            if (err)
+              return res.status(400).send(err);
 
-      return res.status(200).json(result);
+            return res.status(200).json(result);
+          });
+      } else {
+        return res.status(403).json({ message: 'not allowed' });
+      }
+    }
   });
 };
 
@@ -159,7 +171,13 @@ const authenticate = function(req, res, next) {
     result.comparePassword(password, function(err, isMatch){
       if (err) return res.status(400).json(err);
       if (isMatch) {
-        return res.status(200).json({ uid: result._id, token: 'Your token here '});
+        jwtHelper.tokenForUser(result, (err, token) => {
+          if (err) {
+            return res.status(403).json(err);
+          } else {
+            return res.status(200).json({ uid: result._id, token });
+          }
+        });
       } else {
         return res.status(403).json({ message: 'Incorrect password' });
       }
