@@ -24,6 +24,10 @@ var DrugSchema = new Schema(
     disease: {
       type: Schema.Types.ObjectId,
       ref: 'Diseases'
+    },
+    patient: {
+      type: Schema.Types.ObjectId,
+      ref: 'Patients'
     }
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }

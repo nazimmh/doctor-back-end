@@ -21,6 +21,17 @@ const getDrug = function (req, res, next) {
   });
 };
 
+const getDrugsByPatient = function(req, res) {
+  const id = req.params.id;
+  if (!id)
+    return res.status(400).json({ message: 'id is required' });
+
+  Drug.find({ patient: id }).populate('disease').exec(function(err, result) {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json(result);
+  });
+};
+
 const updateDrug = function (req, res, next) {
   const id = req.params.id;
   const {
@@ -54,6 +65,7 @@ const addDrug = function (req, res, next) {
     description,
     schedule,
     disease,
+    patient,
   } = req.body;
   let drug = new Drug();
   drug.drug = uuid();
@@ -61,6 +73,7 @@ const addDrug = function (req, res, next) {
   drug.description = description;
   drug.schedule = schedule;
   drug.disease = new Types.ObjectId(disease);
+  drug.patient = new Types.ObjectId(patient);
 
   drug.save(function(err) {
     if (err)
@@ -72,6 +85,7 @@ const addDrug = function (req, res, next) {
 module.exports = {
   getAllDrugs,
   getDrug,
+  getDrugsByPatient,
   updateDrug,
   addDrug,
 };

@@ -35,6 +35,7 @@ router.route('/specialities').post(specialities.addSpeciality);
 // drugs api
 router.route('/drugs').get(drugs.getAllDrugs);
 router.route('/drugs/:id').get(drugs.getDrug);
+router.route('/patient/:id/drugs').get(drugs.getDrugsByPatient);
 router.route('/drugs/:id').put(drugs.updateDrug);
 router.route('/drugs').post(drugs.addDrug);
 
