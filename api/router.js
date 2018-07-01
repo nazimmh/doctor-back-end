@@ -10,10 +10,14 @@ var indicators = require('./indicators');
 var appointments = require('./appointments');
 var messages = require('./messages');
 
+var verifyToken = require('./helpers/jwt');
+
 router.use(function(req, res, next) {
   console.log('requesting...');
   next();
 });
+
+router.use(verifyToken.verifyToken);
 
 // doctors api
 router.route('/doctors').get(doctorsApi.listDoctors);
